@@ -29,14 +29,23 @@ class TTTBoard
     end
   end
 
+  def number_of_turns
+    @@chosen_num.length
+  end
+
   def show_board
+    puts "\n"
     board.each do |row|
-      p row
+      p row.map {|col| col == nil ? "" : col}
     end
   end
 
   def game_score
     calculate_board_score
+  end
+
+  def winner?
+     calculate_board_score.max == 3 || calculate_board_score.min == -3
   end
 
   private
@@ -75,6 +84,4 @@ class TTTBoard
   def check_num(num)
     @@chosen_num.include?(num) || num < 1 || num > 9
   end
-
-
 end
