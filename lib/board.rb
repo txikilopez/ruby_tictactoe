@@ -1,14 +1,32 @@
 class TTTBoard
   attr_accessor :board
+  @@chosen_num = []
   
   def initialize
     @board = Array.new(3) {Array.new(3)}
+    initial_text
+  end
+
+  def initial_text
+    puts "Welcome to Tic Tac Toe."
+    puts "board will be as follows:"
+    p [1,2,3]
+    p [4,5,6]
+    p [7,8,9]
+    puts "Pick a number that represents a square. First player will be x"
   end
   
   def mark_on_board(num, char)
-    a = (num.to_i - 1)/3
-    b = (num.to_i-1) % 3
-    self.board[a][b] = char
+    if check_num(num.to_i)
+      puts "invalid number, please choose another"
+      num2 = gets.chomp.to_i
+      mark_on_board(num2,char)
+    else
+      a = (num.to_i - 1)/3
+      b = (num.to_i-1) % 3
+      self.board[a][b] = char
+      @@chosen_num << num.to_i
+    end
   end
 
   def show_board
@@ -55,7 +73,7 @@ class TTTBoard
   end 
 
   def check_num(num)
-
+    @@chosen_num.include?(num) || num < 1 || num > 9
   end
 
 

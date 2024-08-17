@@ -2,15 +2,12 @@ require_relative './lib/board'
 require_relative './lib/turn'
 require 'pry-byebug'
 
-puts "Welcome to Tic Tac Toe please first player be x, second player will be o"
-
 new_game = TTTBoard.new()
-# puts new_game.board
 char = "x"
 
 7.times do
   puts "please select square"
-  selection = gets.chomp
+  selection = gets.chomp.to_i
   new_game.mark_on_board(selection,char)
   new_game.show_board
 
