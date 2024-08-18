@@ -1,9 +1,10 @@
 class TTTBoard
-  attr_accessor :board
+  attr_accessor :board, :token
   @@chosen_num = []
   
-  def initialize
+  def initialize()
     @board = Array.new(3) {Array.new(3)}
+    @token = "x"
     initial_text
   end
 
