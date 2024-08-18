@@ -1,4 +1,4 @@
-require_relative './lib/turn'
+require_relative './lib/game'
 require_relative './lib/board'
 require 'pry-byebug'
 
