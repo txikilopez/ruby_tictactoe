@@ -34,13 +34,6 @@ class TTTBoard
     @@chosen_num.length
   end
 
-  def show_board
-    puts "\n"
-    board.each do |row|
-      p row.map {|col| col == nil ? "" : col}
-    end
-  end
-
   def game_score
     calculate_board_score
   end
