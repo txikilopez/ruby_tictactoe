@@ -1,31 +1,32 @@
 class TTTBoard
   attr_accessor :board, :token
+
   @@chosen_num = []
-  
-  def initialize()
-    @board = Array.new(3) {Array.new(3)}
-    @token = "x"
+
+  def initialize
+    @board = Array.new(3) { Array.new(3) }
+    @token = 'x'
     initial_text
   end
 
   def initial_text
-    puts "Welcome to Tic Tac Toe."
-    puts "board will be as follows:"
-    p [1,2,3]
-    p [4,5,6]
-    p [7,8,9]
-    puts "Pick a number that represents a square. First player will be x"
+    puts 'Welcome to Tic Tac Toe.'
+    puts 'board will be as follows:'
+    p [1, 2, 3]
+    p [4, 5, 6]
+    p [7, 8, 9]
+    puts 'Pick a number that represents a square. First player will be x'
   end
-  
+
   def mark_on_board(num, char)
     if check_num(num.to_i)
-      puts "invalid number, please choose another"
+      puts 'invalid number, please choose another'
       num2 = gets.chomp.to_i
-      mark_on_board(num2,char)
+      mark_on_board(num2, char)
     else
-      a = (num.to_i - 1)/3
-      b = (num.to_i-1) % 3
-      self.board[a][b] = char
+      a = (num.to_i - 1) / 3
+      b = (num.to_i - 1) % 3
+      board[a][b] = char
       @@chosen_num << num.to_i
     end
   end
@@ -39,41 +40,41 @@ class TTTBoard
   end
 
   def winner?
-     calculate_board_score.max == 3 || calculate_board_score.min == -3
+    calculate_board_score.max == 3 || calculate_board_score.min == -3
   end
 
   private
 
   def convert_board_score
     @score = board.map do |row|
-              row.map do |col|
-                if col == "x"
-                  1
-                elsif col == "o"
-                  -1
-                else
-                  0
-                end
-              end
-            end
+      row.map do |col|
+        if col == 'x'
+          1
+        elsif col == 'o'
+          -1
+        else
+          0
+        end
+      end
+    end
   end
 
   def calculate_board_score
     arr = convert_board_score
     diag = []
     rows = arr.map do |row|
-              row.sum
+      row.sum
     end.minmax
 
     cols = arr.transpose.map do |colmn|
-              colmn.sum
+      colmn.sum
     end.minmax
 
     diag = [arr[0][0] + arr[1][1] + arr[2][2],
             arr[1][1] + arr[0][2] + arr[2][0]].minmax
-  
-    @score = [rows,cols,diag].flatten.minmax
-  end 
+
+    @score = [rows, cols, diag].flatten.minmax
+  end
 
   def check_num(num)
     @@chosen_num.include?(num) || num < 1 || num > 9
